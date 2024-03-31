@@ -30,7 +30,8 @@ These instructions will guide you through setting up and running the project loc
 
 - Change into the project directory with:
 
-    "cd PSEproject"
+   ```bash
+    cd PSEproject
 
 ### Running the Application with Docker
 
@@ -38,19 +39,22 @@ These instructions will guide you through setting up and running the project loc
 
 - In the project root directory, where the Dockerfile is located, build the Docker image using:
 
-    "docker-compose build"
+   ```bash
+    docker-compose build
 
 ### Run the application
 
 - Start the application with Docker Compose:
 
-    "docker-compose up"
+   ```bash
+    docker-compose up
 
 ### Access the application
 
 - The web application should now be running and accessible through your web browser at:
     
-    "http://localhost:5000"
+   ```arduino
+    http://localhost:5000
 
 - Adjust the port in the URL if you've configured it differently in your docker-compose.yml or Flask application.
 
