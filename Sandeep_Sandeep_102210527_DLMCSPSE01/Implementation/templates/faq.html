@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+
+<main>
+    <section class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+        <h3>How do I list my bike?</h3>
+        <p>Simply create an account, navigate to the listing section, and fill out the form with your bicycle's details.</p>
+
+        <h3>How long can I rent a bike?</h3>
+        <p>Bikes can be rented for a minimum of one day and a maximum of one week.</p>
+
+        <h3>Is there a fee for using RentOBike?</h3>
+        <p>No, our service is completely free to use for both renters and owners.</p>
+
+        <h3>What happens if the bike I rented gets damaged?</h3>
+        <p>As a renter, you are responsible for repairing or replacing the bicycle in case of damage or loss.</p>
+
+        <h3>How do I resolve a dispute with another user?</h3>
+        <p>While RentOBike does not mediate disputes, we recommend directly communicating with the other party to resolve any issues. If necessary, seek legal advice.</p>
+
+        </div>
+    </section>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+
+
+</body>
+</html>

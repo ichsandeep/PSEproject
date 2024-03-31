@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Thank You for Your Booking!</h1>
+    <div class="confirmation-details">
+        <p>Your booking for <strong>{{ bicycle.name }}</strong> has been confirmed.</p>
+    </div>
+
+    <div class="rental-period">
+        <h2>Rental Period:</h2>
+        <p>Start Date: {{ booking.start_date.strftime('%Y-%m-%d') }}</p>
+        <p>End Date: {{ booking.end_date.strftime('%Y-%m-%d') }}</p>
+    </div>
+
+
+    <div class="pickup-information">
+        <h2>Pickup Information</h2>
+        <p>Location: {{ owner.address }}, {{ owner.city }}</p>
+        <p>Owner's Contact: {{ owner.mobile_number }}</p>
+        <p>Please contact the owner at least 24 hours before your rental period to arrange for pickup.</p>
+    </div>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+</body>
+</html>

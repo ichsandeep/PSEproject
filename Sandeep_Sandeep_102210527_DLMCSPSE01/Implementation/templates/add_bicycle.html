@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const fileInput = document.getElementById("bicyclePhotos");
+            fileInput.addEventListener("change", function() {
+                const files = fileInput.files;
+                if (files.length < 2 || files.length > 5) {
+                    alert("Please upload a minimum of 2 and a maximum of 5 photos.");
+                    fileInput.value = ""; // Clear the file input
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+
+<main>
+    <section class="add-bicycle-form">
+        <h2>Add Your Bicycle</h2>
+        <form action="{{ url_for('add_bicycle') }}" method="POST" enctype="multipart/form-data">
+            <label for="name">Bicycle Name</label>
+            <input type="text" name="name" id="name" placeholder="Name" required><br>
+
+            <label for="bike_type">Bike Type:</label>
+            <select name="bike_type" id="bike_type" required>
+                <option value="">Choose a type</option>
+                <option value="mountain">Mountain</option>
+                <option value="road">Road</option>
+                <option value="city">City</option>
+                <!-- Add other types as needed -->
+            </select><br>
+
+
+            <label for="description">Description</label>
+            <textarea name="description" id="description" placeholder="Description" required></textarea><br>
+
+            <label for="bicyclePhotos">Upload Photos (2 to 5)</label>
+            <input type="file" id="bicyclePhotos" name="bicyclePhotos" accept="image/*" multiple required>
+            <span class="form-hint">Please upload a minimum of 2 and a maximum of 5 photos.</span><br>
+
+
+            <label for="availability">Availability (days)</label>
+            <select name="availability" id="availability" required>
+                <option value="">Select days</option>
+                <option value="1">1 day</option>
+                <option value="2">2 days</option>
+                <option value="3">3 days</option>
+                <option value="4">4 days</option>
+                <option value="5">5 days</option>
+                <option value="6">6 days</option>
+                <option value="7">1 week</option>
+            </select><br>
+
+            <label for="location">Location</label>
+            <input type="text" name="location" id="location" placeholder="City or Location" required><br>
+
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country" placeholder="Country" required><br>
+
+
+            <!-- Include more fields as necessary -->
+
+            <button type="submit">Add Bicycle</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+
+
+</body>
+</html>

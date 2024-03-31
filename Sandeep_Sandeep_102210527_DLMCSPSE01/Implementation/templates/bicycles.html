@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>Available Bicycles for Rent</h1>
+
+    <!-- Filtering Form -->
+    <form action="{{ url_for('bicycles') }}" method="get">
+        <select name="bike_type">
+            <option value="">All Types</option>
+            <option value="mountain">Mountain</option>
+            <option value="road">Road</option>
+            <option value="city">City</option>
+            <!-- Add other types as needed -->
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="bicycles-gallery">
+        {% for bicycle in bicycles %}
+            <div class="bicycle-item">
+                <h3>{{ bicycle.name }}</h3>
+                <img src="{{ url_for('static', filename=bicycle.image_url) }}" alt="Image of {{ bicycle.name }}">
+                <a href="{{ url_for('bicycle_details', bicycle_id=bicycle.id) }}">View Details</a>
+            </div>
+        {% else %}
+            <p>No bicycles available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('bicycles', page=pagination.prev_num) }}">Previous</a>
+        {% endif %}
+        {% if pagination.has_next %}
+            <a href="{{ url_for('bicycles', page=pagination.next_num) }}">Next</a>
+        {% endif %}
+    </div>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="signup-form">
+        <h2>Sign Up</h2>
+        <form action="{{ url_for('signup') }}" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Username" required><br>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email" required><br>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" required><br>
+
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required><br>
+
+            <label for="user_type">I am a:</label>
+            <select name="user_type" id="user_type" required>
+                <option value="owner">Bicycle Owner</option>
+                <option value="renter">Renter</option>
+            </select><br>
+
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" placeholder="Address" required><br>
+
+            <label for="pincode">Pincode</label>
+            <input type="text" name="pincode" id="pincode" placeholder="Pincode" required><br>
+
+            <label for="mobile_number">Mobile Number</label>
+            <input type="text" name="mobile_number" id="mobile_number" placeholder="Mobile Number" required><br>
+
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" placeholder="City" required><br>
+
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country" placeholder="Country" required><br>
+
+            <div class="agreement">
+                <input type="checkbox" id="terms_accepted" name="terms_accepted" required>
+                <label for="terms_accepted">I agree to the <a href="{{ url_for('terms') }}">Terms and Conditions</a> and <a href="{{ url_for('privacy') }}">Privacy Policy</a>.</label>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </section>
+</main>
+
+
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+
+
+</body>
+</html>

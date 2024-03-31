@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="privacy-policy">
+        <h2>Privacy Policy</h2>
+
+        <h3>Introduction</h3>
+        <p>This policy describes how RentOBike collects, uses, and shares personal information.</p>
+
+        <h3>Information Collection</h3>
+        <p>We collect information you provide directly to us, such as when you create an account, list a bicycle, or communicate with other users.</p>
+
+        <h3>Use of Information</h3>
+        <p>To operate, maintain, and improve our services.<br>To communicate with you, including to send you service-related notices.</p>
+
+        <h3>Sharing of Information</h3>
+        <p>We do not share your personal information with third parties.</p>
+
+        <h3>Security</h3>
+        <p>We strive to implement reasonable security measures to protect your information. However, no security system is impenetrable.</p>
+
+        <h3>Changes to This Policy</h3>
+        <p>We may update this privacy policy from time to time. The updated version will be indicated by an updated "Revised" date.</p>
+
+    </section>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+
+</body>
+</html>

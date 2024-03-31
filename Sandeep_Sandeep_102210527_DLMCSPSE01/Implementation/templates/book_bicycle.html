@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <title>Book Bicycle - RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main>
+    <h2>Book Bicycle: {{ bicycle.name }}</h2>
+    <form action="{{ url_for('book_bicycle', bicycle_id=bicycle.id) }}" method="POST">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required>
+
+        <button type="submit">Book Now</button>
+    </form>
+</main>
+</body>
+</html>

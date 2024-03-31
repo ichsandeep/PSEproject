@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ bicycle.name }} - RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <h1>{{ bicycle.name }}</h1>
+    <div class="bicycle-images">
+        {% for image_url in bicycle.image_url.split(';') %}
+            <img src="{{ url_for('static', filename=image_url) }}" alt="Image of {{ bicycle.name }}">
+        {% endfor %}
+    </div>
+    <p class="description">{{ bicycle.description }}</p>
+    <ul class="specs">
+        <li><strong>Type:</strong> {{ bicycle.bike_type }}</li>
+        <!-- Additional specifications -->
+    </ul>
+    <button onclick="location.href='{{ url_for('book_bicycle', bicycle_id=bicycle.id) }}'">Book Now</button>
+</main>
+
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+</body>
+</html>

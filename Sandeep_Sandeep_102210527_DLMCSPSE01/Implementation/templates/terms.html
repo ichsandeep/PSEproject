@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentOBike</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>
+            <a href="{{ url_for('home') }}">RentOBike</a>
+            <img src="{{ url_for('static', filename='logow.png') }}" class="logo">
+        </h1>
+        <nav id="navMenu">
+            {% if session.get('username') %}
+                <span>Welcome, <a href="{{ url_for('profile') }}">{{ session.get('username') }}</a>!</span>
+                {% if session.get('user_type') == 'owner' %}
+                    <a href="{{ url_for('add_bicycle') }}">Add Bicycle</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Sign Out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="terms-conditions">
+        <h2>Terms and Conditions</h2>
+        <p>Please read these terms and conditions carefully before using the Service.</p>
+        <h3>Introduction</h3>
+        <p>Welcome to the RentOBike, a bicycle renting platform where users can either offer their bicycles for rent or rent bicycles from others. This document outlines the terms and conditions under which you may use our service.</p>
+
+        <h3>Eligibility</h3>
+        <p>Users must be 17 years of age or older to participate in renting or listing bicycles.</p>
+
+        <h3>Account Registration</h3>
+        <p>Users must register an account providing accurate, complete, and updated information. Failure to do so constitutes a breach of the terms, which may result in account termination.</p>
+
+        <h3>Bicycle Listing and Renting Process</h3>
+        <p>Owners can list their bicycles specifying the condition, availability, and any special instructions.<br>Renters can browse listings and rent a bicycle for a minimum of one day and a maximum of one week.<br>No transactions will be processed through RentOBike. All services provided are free.</p>
+
+        <h3>User Responsibilities</h3>
+        <p>Renters: are responsible for any damages, loss, or theft that occurs during the rental period. Renters agree to repair or replace the bicycle in case of damage or loss.<br>Owners: must ensure the bicycle is in good, rideable condition when listing it for rent.</p>
+
+        <h3>Limitation of Liability</h3>
+        <p>RentOBike is not responsible for any disputes, damages, or legal implications that arise from the direct transactions between renters and owners. We serve as a platform to facilitate these transactions only.</p>
+
+        <h3>Termination</h3>
+        <p>RentOBike reserves the right to terminate accounts, remove listings, or cancel rentals at our discretion.</p>
+    </section>
+</main>
+
+<footer>
+    <section class="about-us">
+        <h3>About Us</h3>
+        <nav>
+            <a href="{{ url_for('contact') }}">Contact</a>
+            <a href="{{ url_for('terms') }}">Terms and Conditions</a>
+            <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('faq') }}">FAQ</a>
+        </nav>
+    </section>
+</footer>
+</body>
+</html>
